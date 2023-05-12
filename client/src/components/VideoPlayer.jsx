@@ -42,17 +42,27 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const VideoPlayer = ({ src }) => {
+const VideoPlayer = ({ myVideoSrc, userVideoSrc }) => {
   const {name, callAccepted, myVideo, userVideo, callEnded, stream, call} = useContext(SocketContext);
   const classes = useStyles();
 
-  const handleFullscreen = () => {
-    if (myVideo.current.requestFullscreen) {
-      myVideo.current.requestFullscreen();
-    } else if (myVideo.current.webkitRequestFullscreen) {
-      myVideo.current.webkitRequestFullscreen(); // Safari
-    } else if (myVideo.current.msRequestFullscreen) {
-      myVideo.current.msRequestFullscreen(); // IE11
+  const handleFullScreenMyVideo = () => {
+    if (myVideo.current.requestFullScreen) {
+      myVideo.current.requestFullScreen();
+    } else if (myVideo.current.webkitRequestFullScreen) {
+      myVideo.current.webkitRequestFullScreen(); // Safari
+    } else if (myVideo.current.msRequestFullScreen) {
+      myVideo.current.msRequestFullScreen(); // IE11
+    }
+  };
+
+  const handleFullScreenUserVideo = () => {
+    if (userVideo.current.requestFullScreen) {
+      userVideo.current.requestFullScreen();
+    } else if (userVideo.current.webkitRequestFullScreen) {
+      userVideo.current.webkitRequestFullScreen(); // Safari
+    } else if (userVideo.current.msRequestFullScreen) {
+      userVideo.current.msRequestFullScreen(); // IE11
     }
   };
 
@@ -63,8 +73,8 @@ const VideoPlayer = ({ src }) => {
           <Paper className={classes.paper}>
             <Grid item xs={12} md={6}>
               <Typography className={classes.name} variant='h5' gutterBottom>{name || 'Name'}</Typography>
-              <video src={src} playsInline muted ref={myVideo} autoPlay className={classes.video}/>
-              <ZoomOutMapIcon className={classes.zoomOut} onClick={handleFullscreen}>Full Screen</ZoomOutMapIcon>
+              <video src={myVideoSrc} playsInline muted ref={myVideo} autoPlay className={classes.video}/>
+              <ZoomOutMapIcon className={classes.zoomOut} onClick={handleFullScreenMyVideo} />
             </Grid>
           </Paper>
         )
@@ -75,8 +85,8 @@ const VideoPlayer = ({ src }) => {
             <Grid item xs={12} md={6}>
               <Typography className={classes.name} variant='h5' gutterBottom>{call.name || 'Name'}</Typography>
               {console.log('CALLNAME', call.name)}
-              <video playsInline ref={userVideo} autoPlay className={classes.video}/>
-              <ZoomOutMapIcon className={classes.zoomOut} onClick={handleFullscreen}>Full Screen</ZoomOutMapIcon>
+              <video src={userVideoSrc} playsInline ref={userVideo} autoPlay className={classes.video}/>
+              <ZoomOutMapIcon className={classes.zoomOut} onClick={handleFullScreenUserVideo} />
             </Grid>
           </Paper>
         )
