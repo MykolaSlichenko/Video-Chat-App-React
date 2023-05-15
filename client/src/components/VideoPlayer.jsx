@@ -38,7 +38,8 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     backgroundColor: 'white',
     bottom: '14px',
-    right: '14px'
+    right: '14px',
+    cursor: 'pointer'
   }
 }));
 
