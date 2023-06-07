@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 20,
   },
   paper: {
+    backgroundColor: 'rgb(19, 176, 98)',
     padding: '10px 20px',
     border: '2px solid black',
   },

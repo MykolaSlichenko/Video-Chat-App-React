@@ -1,5 +1,5 @@
-import React from 'react';
-import {Typography, AppBar} from '@material-ui/core';
+import React, {useState} from 'react';
+import {Typography, AppBar, Button} from '@material-ui/core';
 
 import VideoPlayer from './components/VideoPlayer';
 import Notifications from './components/Notifications';
@@ -9,19 +9,18 @@ import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme)  => ({
   appBar: {
-    margin: '30px 100px',
     display: 'flex',
+    backgroundColor: 'black',
+    color: 'rgb(3, 252, 127)',
+    opacity: '0.6',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '600px',
+    // width: '800px',
     border: '2px solid black',
     [theme.breakpoints.down('xs')]: {
       width: '90%',
     },
-  },
-  image: {
-    marginLeft: '15px',
   },
   wrapper: {
     display: 'flex',
@@ -33,16 +32,27 @@ const useStyles = makeStyles((theme)  => ({
 
 const App = () => {
   const classes = useStyles();
+  const [showOptions, setShowOptions] = useState(false);
+
+  const handleToggleOptions = () => {
+    setShowOptions((prevShowOptions) => !prevShowOptions);
+  };
 
   return (
     <div className={classes.wrapper}>
       <AppBar className={classes.appBar} position='static' color='inherit'>
-        <Typography variant='h2' align='center'>Video Chat</Typography>
+        <Typography variant='h4' align='center'>Video Call</Typography>
       </AppBar>
       <VideoPlayer />
-      <Options>
-        <Notifications />
-      </Options>
+      {showOptions && (
+        <Options>
+          <Notifications />
+        </Options>
+      )}
+
+      <Button variant="contained" color="primary" onClick={handleToggleOptions}>
+        {showOptions ? 'Hide Options' : 'Show Options'}
+      </Button>
     </div>
   )
 };
